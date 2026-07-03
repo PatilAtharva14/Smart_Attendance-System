@@ -1,0 +1,7 @@
+flask
+opencv-python
+face_recognition
+mediapipe==0.10.18
+numpy
+pandas
+plotly
