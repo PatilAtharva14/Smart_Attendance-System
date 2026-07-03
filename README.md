@@ -241,15 +241,14 @@ The system provides:
 
 # 📷 Screenshots
 
-Add screenshots of:
-
 - Login Page
-- Admin Dashboard
-- Faculty Dashboard
-- Student Dashboard
-- Face Registration
+- <img width="1920" height="1080" alt="Screenshot (117)" src="https://github.com/user-attachments/assets/c9d7fdde-8422-450e-b4c0-261f1ea1dc17" />  
 - Live Attendance
+- <img width="1920" height="1080" alt="Screenshot (125)" src="https://github.com/user-attachments/assets/186f7e9f-e13b-4953-8bf6-f5150d36926e" />
 - Analytics Dashboard
+- <img width="1920" height="1080" alt="Screenshot (128)" src="https://github.com/user-attachments/assets/c5257ee5-2508-4dcb-be2e-a7668a0dbef3" />
+- <img width="1920" height="1080" alt="Screenshot (117)" src="https://github.com/user-attachments/assets/d4c8e4b0-4a4c-4081-a747-e257b9b490a7" />
+
 
 ---
 
