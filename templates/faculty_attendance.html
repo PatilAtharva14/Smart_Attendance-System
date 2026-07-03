@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Faculty AI Attendance
+
+    </title>
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    <!-- ICONS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        *{
+
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #020617,
+                    #0F172A,
+                    #111827
+                );
+
+            font-family:'Poppins', sans-serif;
+
+            color:white;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            padding:30px;
+        }
+
+        .container{
+
+            width:1000px;
+
+            padding:40px;
+
+            border-radius:30px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            backdrop-filter:blur(14px);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            text-align:center;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.45);
+        }
+
+        h1{
+
+            font-size:52px;
+
+            color:#00E5FF;
+
+            margin-bottom:12px;
+
+            font-weight:800;
+        }
+
+        .subtitle{
+
+            color:#CBD5E1;
+
+            font-size:20px;
+
+            margin-bottom:28px;
+        }
+
+        /* ===========================
+        STATUS BAR
+        ============================ */
+
+        .status{
+
+            display:inline-flex;
+
+            align-items:center;
+
+            gap:10px;
+
+            padding:12px 24px;
+
+            border-radius:30px;
+
+            background:
+                rgba(0,255,127,0.12);
+
+            color:#00FF9C;
+
+            font-weight:700;
+
+            border:
+                1px solid rgba(0,255,127,0.2);
+
+            margin-bottom:28px;
+        }
+
+        .dot{
+
+            width:12px;
+            height:12px;
+
+            border-radius:50%;
+
+            background:#00FF9C;
+
+            animation:pulse 1s infinite;
+        }
+
+        @keyframes pulse{
+
+            0%{
+
+                transform:scale(1);
+                opacity:1;
+            }
+
+            50%{
+
+                transform:scale(1.4);
+                opacity:0.5;
+            }
+
+            100%{
+
+                transform:scale(1);
+                opacity:1;
+            }
+
+        }
+
+        /* ===========================
+        CAMERA
+        ============================ */
+
+        .camera-box{
+
+            width:850px;
+
+            margin:auto;
+
+            overflow:hidden;
+
+            border-radius:22px;
+
+            border:
+                3px solid rgba(0,229,255,0.25);
+
+            background:black;
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,0.45);
+        }
+
+        .camera-box img{
+
+            width:100%;
+
+            display:block;
+        }
+
+        /* ===========================
+        MESSAGE
+        ============================ */
+
+        .message-box{
+
+            margin-top:25px;
+
+            min-height:60px;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+        }
+
+        .message{
+
+            padding:14px 24px;
+
+            border-radius:14px;
+
+            background:
+                rgba(0,255,127,0.12);
+
+            color:#00FF9C;
+
+            font-weight:700;
+
+            font-size:18px;
+
+            border:
+                1px solid rgba(0,255,127,0.2);
+
+            animation:
+                fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+
+                opacity:0;
+
+                transform:
+                    translateY(-10px);
+            }
+
+            to{
+
+                opacity:1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+        /* ===========================
+        BUTTONS
+        ============================ */
+
+        .buttons{
+
+            margin-top:30px;
+
+            display:flex;
+
+            justify-content:center;
+
+            gap:20px;
+        }
+
+        .btn{
+
+            padding:15px 28px;
+
+            border-radius:16px;
+
+            text-decoration:none;
+
+            font-weight:700;
+
+            font-size:16px;
+
+            transition:0.3s;
+        }
+
+        .primary{
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00E5FF,
+                    #00B8D4
+                );
+
+            color:#0F172A;
+        }
+
+        .secondary{
+
+            background:
+                rgba(255,255,255,0.08);
+
+            color:white;
+        }
+
+        .btn:hover{
+
+            transform:translateY(-4px);
+        }
+
+        /* ===========================
+        RESPONSIVE
+        ============================ */
+
+        @media(max-width:950px){
+
+            .container{
+
+                width:95%;
+                padding:25px;
+            }
+
+            .camera-box{
+
+                width:100%;
+            }
+
+            h1{
+
+                font-size:40px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+
+        👨‍🏫 Faculty AI Attendance
+
+    </h1>
+
+    <p class="subtitle">
+
+        Real-Time Face Recognition Attendance System
+
+    </p>
+
+    <!-- STATUS -->
+
+    <div class="status">
+
+        <div class="dot"></div>
+
+        AI Recognition Active
+
+    </div>
+
+    <!-- CAMERA -->
+
+    <div class="camera-box">
+
+        <img
+            src="/video_feed"
+        >
+
+    </div>
+
+    <!-- LIVE MESSAGE -->
+
+    <div class="message-box">
+
+        <div
+            class="message"
+            id="message"
+        >
+
+            Waiting for Face Detection...
+
+        </div>
+
+    </div>
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+        <a
+            href="/faculty"
+            class="btn primary"
+        >
+
+            ⬅ Back Dashboard
+
+        </a>
+
+        <a
+            href="/logout"
+            class="btn secondary"
+        >
+
+            Logout
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- MESSAGE SCRIPT -->
+
+<script>
+
+async function updateMessage(){
+
+    try{
+
+        let response =
+            await fetch(
+                "/get_message"
+            )
+
+        let data =
+            await response.json()
+
+        if(data.message){
+
+            document
+                .getElementById(
+                    "message"
+                )
+                .innerText =
+                    data.message
+        }
+
+    }catch(err){
+
+        console.log(err)
+    }
+}
+
+setInterval(
+    updateMessage,
+    1000
+)
+
+</script>
+
+</body>
+</html>

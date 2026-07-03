@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Smart AI Login
+
+    </title>
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    <!-- ICONS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        *{
+
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #020617,
+                    #0F172A,
+                    #111827
+                );
+
+            font-family:'Poppins', sans-serif;
+
+            overflow:hidden;
+        }
+
+        .login-container{
+
+            width:100%;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+        }
+
+        .login-card{
+
+            width:450px;
+
+            padding:45px 40px;
+
+            border-radius:30px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            backdrop-filter:blur(14px);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            text-align:center;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.4);
+        }
+
+        h1{
+
+            font-size:58px;
+
+            margin-bottom:12px;
+
+            color:white;
+
+            font-weight:800;
+
+            line-height:1.2;
+        }
+
+        .subtitle{
+
+            color:#CBD5E1;
+
+            margin-bottom:25px;
+
+            font-size:20px;
+        }
+
+        /* ===========================
+        FLASH MESSAGE
+        ============================ */
+
+        .flash-container{
+
+            width:100%;
+
+            display:flex;
+
+            justify-content:center;
+
+            margin-bottom:20px;
+        }
+
+        .flash-message{
+
+            max-width:320px;
+
+            padding:12px 18px;
+
+            border-radius:12px;
+
+            background:
+                rgba(0,255,127,0.12);
+
+            color:#00FF9C;
+
+            font-size:15px;
+
+            font-weight:600;
+
+            text-align:center;
+
+            line-height:1.5;
+
+            word-wrap:break-word;
+
+            overflow-wrap:break-word;
+
+            border:
+                1px solid rgba(0,255,127,0.2);
+
+            animation:
+                fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+
+                opacity:0;
+
+                transform:
+                    translateY(-10px);
+            }
+
+            to{
+
+                opacity:1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+        /* ===========================
+        INPUTS
+        ============================ */
+
+        .input-box{
+
+            position:relative;
+
+            margin-bottom:20px;
+        }
+
+        .input-box input,
+        .input-box select{
+
+            width:100%;
+
+            padding:16px 18px;
+
+            border:none;
+
+            outline:none;
+
+            border-radius:14px;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            color:black;
+
+            font-size:16px;
+        }
+
+        .input-box input::placeholder{
+
+            color:#CBD5E1;
+        }
+
+        .input-box i{
+
+            position:absolute;
+
+            right:18px;
+
+            top:18px;
+
+            color:#00E5FF;
+        }
+
+        /* ===========================
+        BUTTON
+        ============================ */
+
+        button{
+
+            width:100%;
+
+            padding:16px;
+
+            border:none;
+
+            border-radius:14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00E5FF,
+                    #00B8D4
+                );
+
+            color:#0F172A;
+
+            font-size:18px;
+
+            font-weight:700;
+
+            cursor:pointer;
+
+            transition:0.3s;
+        }
+
+        button:hover{
+
+            transform:translateY(-3px);
+
+            box-shadow:
+                0 8px 20px rgba(0,229,255,0.35);
+        }
+
+        /* ===========================
+        REGISTER
+        ============================ */
+
+        .register-link{
+
+            margin-top:22px;
+
+            color:#CBD5E1;
+
+            font-size:16px;
+        }
+
+        .register-link a{
+
+            color:#00E5FF;
+
+            text-decoration:none;
+
+            font-weight:700;
+        }
+
+        /* ===========================
+        ROLE CARDS
+        ============================ */
+
+        .role-cards{
+
+            margin-top:35px;
+
+            display:grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap:15px;
+        }
+
+        .role-card{
+
+            padding:20px 10px;
+
+            border-radius:18px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            transition:0.3s;
+        }
+
+        .role-card:hover{
+
+            transform:translateY(-5px);
+
+            background:
+                rgba(0,229,255,0.08);
+        }
+
+        .role-card i{
+
+            font-size:28px;
+
+            color:#00E5FF;
+
+            margin-bottom:12px;
+        }
+
+        .role-card h3{
+
+            color:white;
+
+            font-size:18px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <h1>
+
+            🔐 Smart AI Login
+
+        </h1>
+
+        <p class="subtitle">
+
+            AI Powered Attendance System
+
+        </p>
+
+        <!-- FLASH -->
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                <div class="flash-container">
+
+                    <div class="flash-message">
+
+                        {{ messages[-1] }}
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+        <!-- FORM -->
+
+        <form method="POST">
+
+            <div class="input-box">
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Enter Username"
+                    required
+                >
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+            <div class="input-box">
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter Password"
+                    required
+                >
+
+                <i class="fa-solid fa-lock"></i>
+
+            </div>
+
+            <div class="input-box">
+
+                <select
+                    name="role"
+                    required
+                >
+
+                    <option value="">
+
+                        Select Role
+
+                    </option>
+
+                    <option value="admin">
+
+                        Admin
+
+                    </option>
+
+                    <option value="faculty">
+
+                        Faculty
+
+                    </option>
+
+                    <option value="student">
+
+                        Student
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button type="submit">
+
+                Login
+
+            </button>
+
+        </form>
+
+        <!-- REGISTER -->
+
+        <div class="register-link">
+
+            New User?
+
+            <a href="/user_register">
+
+                Register Here
+
+            </a>
+
+        </div>
+
+        <!-- ROLE CARDS -->
+
+        <div class="role-cards">
+
+            <div class="role-card">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                <h3>
+
+                    Admin
+
+                </h3>
+
+            </div>
+
+            <div class="role-card">
+
+                <i class="fa-solid fa-chalkboard-user"></i>
+
+                <h3>
+
+                    Faculty
+
+                </h3>
+
+            </div>
+
+            <div class="role-card">
+
+                <i class="fa-solid fa-user-graduate"></i>
+
+                <h3>
+
+                    Student
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

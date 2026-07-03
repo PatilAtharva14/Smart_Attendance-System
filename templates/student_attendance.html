@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Mark Attendance
+
+    </title>
+
+    <!-- ICONS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        body{
+
+            margin:0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0F172A,
+                    #111827,
+                    #1E293B
+                );
+
+            color:white;
+
+            font-family:'Poppins', sans-serif;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            min-height:100vh;
+        }
+
+        .container{
+
+            width:850px;
+
+            padding:35px;
+
+            border-radius:25px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            backdrop-filter:blur(14px);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            text-align:center;
+
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.35);
+        }
+
+        h1{
+
+            font-size:40px;
+
+            margin-bottom:10px;
+        }
+
+        p{
+
+            color:#CBD5E1;
+
+            margin-bottom:25px;
+        }
+
+        img{
+
+            width:100%;
+
+            border-radius:18px;
+
+            border:
+                3px solid rgba(0,229,255,0.3);
+
+            margin-bottom:25px;
+        }
+
+        .status{
+
+            margin-top:15px;
+
+            padding:15px;
+
+            border-radius:14px;
+
+            background:
+                rgba(0,255,127,0.12);
+
+            color:#00FF9C;
+
+            font-weight:600;
+        }
+
+        .back{
+
+            display:inline-block;
+
+            margin-top:25px;
+
+            padding:14px 24px;
+
+            border-radius:12px;
+
+            text-decoration:none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00E5FF,
+                    #00B8D4
+                );
+
+            color:#0F172A;
+
+            font-weight:700;
+
+            transition:0.3s;
+        }
+
+        .back:hover{
+
+            transform:translateY(-3px);
+
+            box-shadow:
+                0 10px 30px rgba(0,229,255,0.3);
+        }
+
+        /* ========================= */
+        /* POPUP */
+        /* ========================= */
+
+        #popup{
+
+            position:fixed;
+
+            top:30px;
+
+            right:-400px;
+
+            background:#111827;
+
+            color:white;
+
+            padding:18px 25px;
+
+            border-radius:14px;
+
+            font-size:16px;
+
+            font-weight:600;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.4);
+
+            transition:0.5s;
+
+            z-index:9999;
+
+            opacity:0;
+
+            border-left:
+                5px solid #00E5FF;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+
+        🎥 Smart Attendance
+
+    </h1>
+
+    <p>
+
+        AI Face Recognition Attendance System
+
+    </p>
+
+    <!-- LIVE CAMERA -->
+
+    <img
+        src="{{ url_for('video_feed') }}"
+    >
+
+    <!-- STATUS -->
+
+    <div class="status">
+
+        🟢 AI Recognition Active
+
+    </div>
+
+    <!-- POPUP -->
+
+    <div id="popup"></div>
+
+    <!-- BACK -->
+
+    <a
+        href="/student"
+        class="back"
+    >
+
+        ⬅ Back To Dashboard
+
+    </a>
+
+</div>
+
+<!-- ========================= -->
+<!-- POPUP SCRIPT -->
+<!-- ========================= -->
+
+<script>
+
+let lastMessage = ""
+
+async function checkMessage(){
+
+    try{
+
+        const response =
+            await fetch("/get_message")
+
+        const data =
+            await response.json()
+
+        const popup =
+            document.getElementById(
+                "popup"
+            )
+
+        if(
+            data.message &&
+            data.message !== "" &&
+            data.message !== lastMessage
+        ){
+
+            lastMessage =
+                data.message
+
+            popup.innerHTML =
+                data.message
+
+            popup.style.opacity = "1"
+
+            popup.style.right = "30px"
+
+            setTimeout(() => {
+
+                popup.style.opacity = "0"
+
+                popup.style.right = "-400px"
+
+            }, 3000)
+
+        }
+
+    }catch(error){
+
+        console.log(error)
+
+    }
+
+}
+
+setInterval(
+    checkMessage,
+    2000
+)
+
+</script>
+
+</body>
+</html>

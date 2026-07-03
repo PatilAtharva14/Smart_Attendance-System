@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Faculty Dashboard
+
+    </title>
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    <!-- ICONS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        *{
+
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #020617,
+                    #0F172A,
+                    #111827
+                );
+
+            font-family:'Poppins', sans-serif;
+
+            color:white;
+        }
+
+        .dashboard{
+
+            display:flex;
+
+            min-height:100vh;
+        }
+
+        /* ===========================
+        SIDEBAR
+        ============================ */
+
+        .sidebar{
+
+            width:280px;
+
+            padding:35px 25px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            backdrop-filter:blur(14px);
+
+            border-right:
+                1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo{
+
+            font-size:32px;
+
+            font-weight:800;
+
+            color:#00E5FF;
+
+            margin-bottom:45px;
+
+            text-align:center;
+        }
+
+        .menu{
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:18px;
+        }
+
+        .menu a{
+
+            padding:16px 18px;
+
+            border-radius:16px;
+
+            text-decoration:none;
+
+            color:white;
+
+            font-size:17px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            transition:0.3s;
+
+            display:flex;
+
+            align-items:center;
+
+            gap:12px;
+        }
+
+        .menu a:hover{
+
+            background:
+                rgba(0,229,255,0.12);
+
+            transform:translateX(6px);
+        }
+
+        .menu i{
+
+            color:#00E5FF;
+        }
+
+        /* ===========================
+        MAIN
+        ============================ */
+
+        .main{
+
+            flex:1;
+
+            padding:35px;
+        }
+
+        .topbar{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:35px;
+        }
+
+        .topbar h1{
+
+            font-size:46px;
+
+            font-weight:800;
+        }
+
+        .badge{
+
+            padding:12px 22px;
+
+            border-radius:30px;
+
+            background:
+                rgba(0,255,127,0.12);
+
+            color:#00FF9C;
+
+            font-weight:700;
+
+            border:
+                1px solid rgba(0,255,127,0.2);
+        }
+
+        /* ===========================
+        STATS
+        ============================ */
+
+        .stats{
+
+            display:grid;
+
+            grid-template-columns:
+                repeat(auto-fit,minmax(220px,1fr));
+
+            gap:22px;
+
+            margin-bottom:35px;
+        }
+
+        .stat-card{
+
+            padding:28px;
+
+            border-radius:24px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            backdrop-filter:blur(14px);
+
+            transition:0.3s;
+        }
+
+        .stat-card:hover{
+
+            transform:translateY(-6px);
+        }
+
+        .stat-card i{
+
+            font-size:34px;
+
+            color:#00E5FF;
+
+            margin-bottom:18px;
+        }
+
+        .stat-card h2{
+
+            font-size:34px;
+
+            margin-bottom:10px;
+        }
+
+        .stat-card p{
+
+            color:#CBD5E1;
+        }
+
+        /* ===========================
+        ACTIONS
+        ============================ */
+
+        .actions{
+
+            display:grid;
+
+            grid-template-columns:
+                repeat(auto-fit,minmax(250px,1fr));
+
+            gap:22px;
+        }
+
+        .action-card{
+
+            padding:28px;
+
+            border-radius:24px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            transition:0.3s;
+        }
+
+        .action-card:hover{
+
+            transform:translateY(-6px);
+
+            background:
+                rgba(0,229,255,0.08);
+        }
+
+        .action-card i{
+
+            font-size:34px;
+
+            margin-bottom:18px;
+
+            color:#00E5FF;
+        }
+
+        .action-card h3{
+
+            margin-bottom:12px;
+
+            font-size:24px;
+        }
+
+        .action-card p{
+
+            color:#CBD5E1;
+
+            margin-bottom:22px;
+
+            line-height:1.6;
+        }
+
+        .btn{
+
+            display:inline-block;
+
+            padding:14px 24px;
+
+            border-radius:14px;
+
+            text-decoration:none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00E5FF,
+                    #00B8D4
+                );
+
+            color:#0F172A;
+
+            font-weight:800;
+
+            transition:0.3s;
+        }
+
+        .btn:hover{
+
+            transform:translateY(-3px);
+        }
+
+        /* ===========================
+        RESPONSIVE
+        ============================ */
+
+        @media(max-width:900px){
+
+            .dashboard{
+
+                flex-direction:column;
+            }
+
+            .sidebar{
+
+                width:100%;
+            }
+
+            .topbar{
+
+                flex-direction:column;
+
+                gap:15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            👨‍🏫 Faculty Panel
+
+        </div>
+
+        <div class="menu">
+
+            <a href="/faculty">
+
+                <i class="fa-solid fa-house"></i>
+
+                Dashboard
+
+            </a>
+
+            <a href="/faculty_register_face">
+
+                <i class="fa-solid fa-camera"></i>
+
+                Register Face
+
+            </a>
+
+            <a href="/faculty_attendance">
+
+                <i class="fa-solid fa-user-check"></i>
+
+                Mark Attendance
+
+            </a>
+
+            <a href="/dashboard">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                Analytics
+
+            </a>
+
+            <a href="/logout">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN -->
+
+    <div class="main">
+
+        <div class="topbar">
+
+            <h1>
+
+                Smart Faculty Dashboard
+
+            </h1>
+
+            <div class="badge">
+
+                🟢 AI System Active
+
+            </div>
+
+        </div>
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-camera"></i>
+
+                <h2>
+
+                    AI Vision
+
+                </h2>
+
+                <p>
+
+                    Real-Time Face Recognition
+
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <h2>
+
+                    Secure
+
+                </h2>
+
+                <p>
+
+                    Anti-Spoof Protection Enabled
+
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-chart-simple"></i>
+
+                <h2>
+
+                    Analytics
+
+                </h2>
+
+                <p>
+
+                    Smart Attendance Insights
+
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-user-check"></i>
+
+                <h2>
+
+                    Smart AI
+
+                </h2>
+
+                <p>
+
+                    Automatic Attendance Tracking
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- ACTIONS -->
+
+        <div class="actions">
+
+            <div class="action-card">
+
+                <i class="fa-solid fa-face-smile"></i>
+
+                <h3>
+
+                    Register Face
+
+                </h3>
+
+                <p>
+
+                    Register your face for
+                    AI attendance verification.
+
+                </p>
+
+                <a
+                    href="/faculty_register_face"
+                    class="btn"
+                >
+
+                    Open
+
+                </a>
+
+            </div>
+
+            <div class="action-card">
+
+                <i class="fa-solid fa-camera"></i>
+
+                <h3>
+
+                    Mark Attendance
+
+                </h3>
+
+                <p>
+
+                    Start live AI attendance
+                    with anti-spoof detection.
+
+                </p>
+
+                <a
+                    href="/faculty_attendance"
+                    class="btn"
+                >
+
+                    Start
+
+                </a>
+
+            </div>
+
+            <div class="action-card">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <h3>
+
+                    Analytics
+
+                </h3>
+
+                <p>
+
+                    Monitor attendance reports
+                    and smart insights.
+
+                </p>
+
+                <a
+                    href="/dashboard"
+                    class="btn"
+                >
+
+                    View
+
+                </a>
+
+            </div>
+
+            <div class="action-card">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <h3>
+
+                    Logout
+
+                </h3>
+
+                <p>
+
+                    Securely logout from
+                    the attendance system.
+
+                </p>
+
+                <a
+                    href="/logout"
+                    class="btn"
+                >
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

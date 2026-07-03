@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        AI Attendance Dashboard
+
+    </title>
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    <!-- ICONS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================================= -->
+    <!-- NAVBAR -->
+    <!-- ================================= -->
+
+    <div class="navbar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-brain"></i>
+
+            Smart AI Attendance
+
+        </div>
+
+        <div class="nav-right">
+
+            <div class="status">
+
+                🟢 AI Engine Active
+
+            </div>
+
+            <div class="status">
+
+                📅 {{ today_attendance }}
+                Present Today
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- PAGE TITLE -->
+    <!-- ================================= -->
+
+    <div class="page-title">
+
+        <h1>
+
+            📊 Attendance Analytics Dashboard
+
+        </h1>
+
+        <p>
+
+            AI-powered real-time student
+            attendance monitoring system
+
+        </p>
+
+    </div>
+
+    {% if no_data %}
+
+        <div class="card">
+
+            <h2>
+
+                No Attendance Records Found
+
+            </h2>
+
+        </div>
+
+    {% else %}
+
+    <!-- ================================= -->
+    <!-- METRIC CARDS -->
+    <!-- ================================= -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h2>
+
+                {{ total_attendance }}
+
+            </h2>
+
+            <p>
+
+                📋 Total Attendance Records
+
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+
+                {{ total_students }}
+
+            </h2>
+
+            <p>
+
+                👨‍🎓 Registered Students
+
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+
+                {{ today_attendance }}
+
+            </h2>
+
+            <p>
+
+                📅 Today's Attendance
+
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+
+                {{ attendance_percent }}%
+
+            </h2>
+
+            <p>
+
+                📈 Attendance Percentage
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- AI INSIGHTS -->
+    <!-- ================================= -->
+
+    <div class="top-box">
+
+        <h2>
+
+            🧠 AI Insights
+
+        </h2>
+
+        {% for insight in insights %}
+
+        <div class="top-item">
+
+            {{ insight }}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <br>
+
+    <!-- ================================= -->
+    <!-- CHARTS -->
+    <!-- ================================= -->
+
+    <div class="graphs">
+
+        <!-- BAR -->
+        <div class="graph-box">
+
+            {{ graph1|safe }}
+
+        </div>
+
+        <!-- LINE -->
+        <div class="graph-box">
+
+            {{ graph2|safe }}
+
+        </div>
+
+        <!-- PIE -->
+        <div class="graph-box">
+
+            {{ graph3|safe }}
+
+        </div>
+
+        <!-- WEEKDAY -->
+        <div class="graph-box">
+
+            {{ graph4|safe }}
+
+        </div>
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- TABLE -->
+    <!-- ================================= -->
+
+    <div class="table-container">
+
+        <h2
+            style="
+                margin-bottom:20px;
+            "
+        >
+
+            📋 Attendance Records
+
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Name</th>
+
+                    <th>Date</th>
+
+                    <th>Time</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for row in records %}
+
+                <tr>
+
+                    <td>
+
+                        {{ row.id }}
+
+                    </td>
+
+                    <td>
+
+                        {{ row.name }}
+
+                    </td>
+
+                    <td>
+
+                        {{ row.date }}
+
+                    </td>
+
+                    <td>
+
+                        {{ row.time }}
+
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="
+                                badge
+                                present
+                            "
+                        >
+
+                            {{ row.status }}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- TOP ATTENDEES -->
+    <!-- ================================= -->
+
+    <div class="top-box">
+
+        <h2>
+
+            🏆 Top Attendees
+
+        </h2>
+
+        {% for student in top_attendees %}
+
+        <div class="top-item">
+
+            <div>
+
+                👨‍🎓
+
+                {{ student.Student }}
+
+            </div>
+
+            <div>
+
+                {{ student["Attendance Count"] }}
+
+                Days
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+    <!-- ================================= -->
+    <!-- BUTTON -->
+    <!-- ================================= -->
+
+    <a
+        href="/"
+        class="btn"
+    >
+
+        ⬅ Back To Home
+
+    </a>
+
+</div>
+
+</body>
+</html>

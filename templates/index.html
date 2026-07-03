@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Smart AI Attendance System
+
+    </title>
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    <!-- ICONS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        .hero{
+            min-height:100vh;
+
+            display:flex;
+
+            flex-direction:column;
+
+            justify-content:center;
+
+            align-items:center;
+
+            text-align:center;
+        }
+
+        .hero h1{
+
+            font-size:65px;
+
+            font-weight:700;
+
+            margin-bottom:20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00E5FF,
+                    #00FFA3
+                );
+
+            -webkit-background-clip:text;
+
+            -webkit-text-fill-color:transparent;
+        }
+
+        .hero p{
+
+            font-size:20px;
+
+            color:#CBD5E1;
+
+            max-width:800px;
+
+            line-height:1.8;
+
+            margin-bottom:40px;
+        }
+
+        .menu{
+
+            display:grid;
+
+            grid-template-columns:
+                repeat(auto-fit,minmax(250px,1fr));
+
+            gap:25px;
+
+            width:100%;
+
+            max-width:1000px;
+        }
+
+        .menu-card{
+
+            padding:35px;
+
+            border-radius:25px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            backdrop-filter:blur(14px);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            transition:0.4s;
+
+            text-decoration:none;
+
+            color:white;
+
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.35);
+        }
+
+        .menu-card:hover{
+
+            transform:translateY(-10px);
+
+            box-shadow:
+                0 15px 45px rgba(0,229,255,0.2);
+        }
+
+        .menu-card i{
+
+            font-size:50px;
+
+            margin-bottom:20px;
+
+            color:#00E5FF;
+        }
+
+        .menu-card h2{
+
+            margin-bottom:15px;
+
+            font-size:28px;
+        }
+
+        .menu-card p{
+
+            color:#CBD5E1;
+
+            font-size:15px;
+
+            line-height:1.7;
+        }
+
+        .footer{
+
+            margin-top:60px;
+
+            color:#94A3B8;
+
+            font-size:14px;
+        }
+
+        @media(max-width:768px){
+
+            .hero h1{
+                font-size:42px;
+            }
+
+            .hero p{
+                font-size:17px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="hero">
+
+        <!-- ========================= -->
+        <!-- TITLE -->
+        <!-- ========================= -->
+
+        <h1>
+
+            🤖 Smart AI Attendance
+
+        </h1>
+
+        <p>
+
+            Advanced AI-powered attendance
+            management system using
+            Face Recognition,
+            Anti-Spoofing,
+            Real-Time Analytics,
+            and Intelligent Monitoring.
+
+        </p>
+
+        <!-- ========================= -->
+        <!-- MENU -->
+        <!-- ========================= -->
+
+        <div class="menu">
+
+            <!-- ATTENDANCE -->
+            <a
+                href="/attendance"
+                class="menu-card"
+            >
+
+                <i class="fa-solid fa-camera"></i>
+
+                <h2>
+
+                    Live Attendance
+
+                </h2>
+
+                <p>
+
+                    Real-time AI attendance
+                    with face recognition
+                    and anti-spoofing.
+
+                </p>
+
+            </a>
+
+            <!-- REGISTER -->
+            <a
+                href="/register"
+                class="menu-card"
+            >
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                <h2>
+
+                    Register Student
+
+                </h2>
+
+                <p>
+
+                    Register students with
+                    AI face capture and
+                    dataset generation.
+
+                </p>
+
+            </a>
+
+            <!-- DASHBOARD -->
+            <a
+                href="/dashboard"
+                class="menu-card"
+            >
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <h2>
+
+                    Analytics Dashboard
+
+                </h2>
+
+                <p>
+
+                    View attendance insights,
+                    charts, trends,
+                    and AI analytics.
+
+                </p>
+
+            </a>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- FOOTER -->
+        <!-- ========================= -->
+
+        <div class="footer">
+
+            Smart Attendance AI System © 2026
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

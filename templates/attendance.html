@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Live Attendance
+
+    </title>
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    <!-- ICONS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        body{
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0F172A,
+                    #111827,
+                    #1E293B
+                );
+
+            color:white;
+
+            font-family:'Poppins', sans-serif;
+        }
+
+        .attendance-container{
+
+            width:95%;
+
+            margin:auto;
+
+            padding:30px;
+
+            text-align:center;
+        }
+
+        .title{
+
+            margin-bottom:30px;
+        }
+
+        .title h1{
+
+            font-size:45px;
+
+            margin-bottom:10px;
+        }
+
+        .title p{
+
+            color:#CBD5E1;
+        }
+
+        /* ============================= */
+        /* CAMERA BOX */
+        /* ============================= */
+
+        .camera-box{
+
+            width:85%;
+
+            margin:auto;
+
+            padding:20px;
+
+            border-radius:25px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            backdrop-filter:blur(14px);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.35);
+        }
+
+        .camera-box img{
+
+            width:100%;
+
+            border-radius:20px;
+
+            border:
+                3px solid rgba(0,229,255,0.3);
+        }
+
+        /* ============================= */
+        /* LIVE STATUS */
+        /* ============================= */
+
+        .live-status{
+
+            margin-top:20px;
+
+            display:flex;
+
+            justify-content:center;
+
+            gap:20px;
+
+            flex-wrap:wrap;
+        }
+
+        .status-card{
+
+            padding:15px 25px;
+
+            border-radius:14px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            color:#00FF9C;
+
+            font-weight:600;
+        }
+
+        /* ============================= */
+        /* POPUP */
+        /* ============================= */
+
+        #popup{
+
+            position:fixed;
+
+            top:30px;
+
+            right:-400px;
+
+            background:#111827;
+
+            color:white;
+
+            padding:18px 25px;
+
+            border-radius:14px;
+
+            font-size:16px;
+
+            font-weight:600;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.4);
+
+            transition:0.5s;
+
+            z-index:9999;
+
+            opacity:0;
+
+            border-left:
+                5px solid #00E5FF;
+        }
+
+        /* ============================= */
+        /* BUTTON */
+        /* ============================= */
+
+        .btn{
+
+            display:inline-block;
+
+            margin-top:35px;
+
+            padding:14px 28px;
+
+            border-radius:12px;
+
+            text-decoration:none;
+
+            font-weight:600;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00E5FF,
+                    #00B8D4
+                );
+
+            color:#0F172A;
+
+            transition:0.3s;
+
+            box-shadow:
+                0 6px 20px rgba(0,229,255,0.3);
+        }
+
+        .btn:hover{
+
+            transform:translateY(-3px);
+
+            box-shadow:
+                0 10px 30px rgba(0,229,255,0.4);
+        }
+
+        @media(max-width:768px){
+
+            .camera-box{
+
+                width:100%;
+            }
+
+            .title h1{
+
+                font-size:34px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="attendance-container">
+
+    <!-- ============================= -->
+    <!-- TITLE -->
+    <!-- ============================= -->
+
+    <div class="title">
+
+        <h1>
+
+            🎥 Live AI Attendance
+
+        </h1>
+
+        <p>
+
+            Real-time face recognition
+            attendance monitoring system
+
+        </p>
+
+    </div>
+
+    <!-- ============================= -->
+    <!-- CAMERA -->
+    <!-- ============================= -->
+
+    <div class="camera-box">
+
+        <img
+            src="{{ url_for('video_feed') }}"
+        >
+
+    </div>
+
+    <!-- ============================= -->
+    <!-- LIVE STATUS -->
+    <!-- ============================= -->
+
+    <div class="live-status">
+
+        <div class="status-card">
+
+            🟢 Camera Active
+
+        </div>
+
+        <div class="status-card">
+
+            🧠 AI Recognition Running
+
+        </div>
+
+        <div class="status-card">
+
+            🛡 Anti-Spoof Enabled
+
+        </div>
+
+    </div>
+
+    <!-- ============================= -->
+    <!-- POPUP -->
+    <!-- ============================= -->
+
+    <div id="popup">
+
+    </div>
+
+    <!-- ============================= -->
+    <!-- BACK BUTTON -->
+    <!-- ============================= -->
+
+    <a
+        href="/"
+        class="btn"
+    >
+
+        ⬅ Back To Home
+
+    </a>
+
+</div>
+
+<!-- ============================= -->
+<!-- POPUP SCRIPT -->
+<!-- ============================= -->
+
+<script>
+
+let lastMessage = ""
+
+async function checkMessage(){
+
+    try{
+
+        const response =
+            await fetch("/get_message")
+
+        const data =
+            await response.json()
+
+        const popup =
+            document.getElementById(
+                "popup"
+            )
+
+        // =========================
+        // NEW MESSAGE ONLY
+        // =========================
+        if(
+            data.message &&
+            data.message !== "" &&
+            data.message !== lastMessage
+        ){
+
+            lastMessage =
+                data.message
+
+            popup.innerHTML =
+                data.message
+
+            popup.style.opacity = "1"
+
+            popup.style.right = "30px"
+
+            // =====================
+            // AUTO HIDE
+            // =====================
+            setTimeout(() => {
+
+                popup.style.opacity = "0"
+
+                popup.style.right = "-400px"
+
+            }, 3000)
+
+        }
+
+    }catch(error){
+
+        console.log(error)
+
+    }
+
+}
+
+setInterval(
+    checkMessage,
+    2000
+)
+
+</script>
+
+</body>
+</html>

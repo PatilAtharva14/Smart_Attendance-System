@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Student Dashboard
+
+    </title>
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    <!-- FONT AWESOME -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        body{
+
+            margin:0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0F172A,
+                    #111827,
+                    #1E293B
+                );
+
+            color:white;
+
+            font-family:'Poppins', sans-serif;
+        }
+
+        /* ========================= */
+        /* DASHBOARD */
+        /* ========================= */
+
+        .dashboard{
+
+            display:flex;
+
+            min-height:100vh;
+        }
+
+        /* ========================= */
+        /* SIDEBAR */
+        /* ========================= */
+
+        .sidebar{
+
+            width:260px;
+
+            padding:30px 20px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            backdrop-filter:blur(14px);
+
+            border-right:
+                1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo{
+
+            font-size:28px;
+
+            font-weight:700;
+
+            color:#00E5FF;
+
+            margin-bottom:40px;
+        }
+
+        .menu{
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:18px;
+        }
+
+        .menu a{
+
+            text-decoration:none;
+
+            color:white;
+
+            padding:15px;
+
+            border-radius:12px;
+
+            transition:0.3s;
+
+            background:
+                rgba(255,255,255,0.03);
+        }
+
+        .menu a:hover{
+
+            background:
+                rgba(0,229,255,0.1);
+
+            transform:translateX(5px);
+        }
+
+        .menu i{
+
+            margin-right:10px;
+
+            color:#00E5FF;
+        }
+
+        /* ========================= */
+        /* MAIN */
+        /* ========================= */
+
+        .main{
+
+            flex:1;
+
+            padding:30px;
+        }
+
+        .topbar{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:35px;
+        }
+
+        .topbar h1{
+
+            font-size:38px;
+        }
+
+        .student-badge{
+
+            padding:12px 20px;
+
+            border-radius:30px;
+
+            background:
+                rgba(0,255,127,0.12);
+
+            color:#00FF9C;
+
+            font-weight:600;
+        }
+
+        /* ========================= */
+        /* PROFILE CARD */
+        /* ========================= */
+
+        .profile-card{
+
+            padding:30px;
+
+            border-radius:22px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            backdrop-filter:blur(14px);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            text-align:center;
+
+            margin-bottom:35px;
+
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.35);
+        }
+
+        .profile-card img{
+
+            width:120px;
+
+            height:120px;
+
+            border-radius:50%;
+
+            margin-bottom:20px;
+
+            border:
+                4px solid #00E5FF;
+        }
+
+        .profile-card h2{
+
+            margin-bottom:10px;
+        }
+
+        .profile-card p{
+
+            color:#CBD5E1;
+        }
+
+        /* ========================= */
+        /* CARDS */
+        /* ========================= */
+
+        .cards{
+
+            display:grid;
+
+            grid-template-columns:
+                repeat(auto-fit,minmax(220px,1fr));
+
+            gap:25px;
+
+            margin-bottom:35px;
+        }
+
+        .card{
+
+            padding:30px;
+
+            border-radius:22px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            transition:0.3s;
+
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.35);
+        }
+
+        .card:hover{
+
+            transform:translateY(-8px);
+        }
+
+        .card i{
+
+            font-size:40px;
+
+            margin-bottom:20px;
+
+            color:#00E5FF;
+        }
+
+        .card h2{
+
+            font-size:34px;
+
+            margin-bottom:10px;
+        }
+
+        .card p{
+
+            color:#CBD5E1;
+        }
+
+        /* ========================= */
+        /* TABLE */
+        /* ========================= */
+
+        .table-container{
+
+            background:
+                rgba(255,255,255,0.05);
+
+            border-radius:20px;
+
+            padding:25px;
+
+            overflow-x:auto;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.35);
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+        }
+
+        th{
+
+            background:
+                rgba(0,229,255,0.12);
+
+            color:#00E5FF;
+
+            padding:16px;
+
+            text-align:left;
+        }
+
+        td{
+
+            padding:14px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.06);
+        }
+
+        tr:hover{
+
+            background:
+                rgba(255,255,255,0.03);
+        }
+
+        .status{
+
+            color:#00FF9C;
+
+            font-weight:600;
+        }
+
+        /* ========================= */
+        /* RESPONSIVE */
+        /* ========================= */
+
+        @media(max-width:900px){
+
+            .dashboard{
+
+                flex-direction:column;
+            }
+
+            .sidebar{
+
+                width:100%;
+            }
+
+            .topbar{
+
+                flex-direction:column;
+
+                gap:15px;
+
+                align-items:flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ========================= -->
+    <!-- SIDEBAR -->
+    <!-- ========================= -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            🎓 Student Panel
+
+        </div>
+
+        <div class="menu">
+
+            <!-- DASHBOARD -->
+
+            <a href="/student">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                My Dashboard
+
+            </a>
+
+            <!-- REGISTER FACE -->
+
+            <a href="/student_register_face">
+
+                <i class="fa-solid fa-camera"></i>
+
+                Register Face
+
+            </a>
+
+            <!-- MARK ATTENDANCE -->
+
+            <a href="/student_attendance">
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+                Mark Attendance
+
+            </a>
+
+            <!-- LOGOUT -->
+
+            <a href="/logout">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- MAIN -->
+    <!-- ========================= -->
+
+    <div class="main">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <h1>
+
+                👨‍🎓 {{ username }} Dashboard
+
+            </h1>
+
+            <div class="student-badge">
+
+                🟢 Student Access
+
+            </div>
+
+        </div>
+
+        <!-- PROFILE -->
+
+        <div class="profile-card">
+
+            <img
+                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            >
+
+            <h2>
+
+                Welcome {{ username }}
+
+            </h2>
+
+            <p>
+
+                AI Attendance Monitoring System
+
+            </p>
+
+        </div>
+
+        <!-- CARDS -->
+
+        <div class="cards">
+
+            <!-- TOTAL ATTENDANCE -->
+
+            <div class="card">
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+                <h2>
+
+                    {{ total }}
+
+                </h2>
+
+                <p>
+
+                    Total Attendance
+
+                </p>
+
+            </div>
+
+            <!-- STATUS -->
+
+            <div class="card">
+
+                <i class="fa-solid fa-user-check"></i>
+
+                <h2>
+
+                    Active
+
+                </h2>
+
+                <p>
+
+                    Student Account Status
+
+                </p>
+
+            </div>
+
+            <!-- AI -->
+
+            <div class="card">
+
+                <i class="fa-solid fa-robot"></i>
+
+                <h2>
+
+                    AI Enabled
+
+                </h2>
+
+                <p>
+
+                    Face Recognition Attendance
+
+                </p>
+
+            </div>
+
+            <!-- SECURITY -->
+
+            <div class="card">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <h2>
+
+                    Secure
+
+                </h2>
+
+                <p>
+
+                    Anti-Spoof Protection Enabled
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- TABLE -->
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Date</th>
+
+                        <th>Time</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for row in attendance_data %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ row[0] }}
+
+                        </td>
+
+                        <td>
+
+                            {{ row[2] }}
+
+                        </td>
+
+                        <td>
+
+                            {{ row[3] }}
+
+                        </td>
+
+                        <td class="status">
+
+                            {{ row[4] }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

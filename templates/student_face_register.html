@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Face Registration
+
+    </title>
+
+    <!-- ICONS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        body{
+
+            margin:0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0F172A,
+                    #111827,
+                    #1E293B
+                );
+
+            color:white;
+
+            font-family:'Poppins', sans-serif;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            min-height:100vh;
+        }
+
+        .container{
+
+            width:700px;
+
+            padding:35px;
+
+            border-radius:25px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            backdrop-filter:blur(14px);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            text-align:center;
+
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.35);
+        }
+
+        h1{
+
+            font-size:38px;
+
+            margin-bottom:10px;
+        }
+
+        p{
+
+            color:#CBD5E1;
+
+            margin-bottom:25px;
+        }
+
+        img{
+
+            width:100%;
+
+            border-radius:18px;
+
+            border:
+                3px solid rgba(0,229,255,0.3);
+
+            margin-bottom:25px;
+        }
+
+        .btn{
+
+            width:100%;
+
+            padding:16px;
+
+            border:none;
+
+            border-radius:14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00E5FF,
+                    #00B8D4
+                );
+
+            color:#0F172A;
+
+            font-size:16px;
+
+            font-weight:700;
+
+            cursor:pointer;
+
+            transition:0.3s;
+        }
+
+        .btn:hover{
+
+            transform:translateY(-3px);
+
+            box-shadow:
+                0 10px 30px rgba(0,229,255,0.3);
+        }
+
+        .back{
+
+            display:inline-block;
+
+            margin-top:20px;
+
+            color:#00E5FF;
+
+            text-decoration:none;
+
+            font-weight:600;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+
+        📸 Face Registration
+
+    </h1>
+
+    <p>
+
+        Register face for:
+        <b>{{ username }}</b>
+
+    </p>
+
+    <!-- CAMERA -->
+
+    <img
+        src="{{ url_for('register_feed') }}"
+    >
+
+    <!-- BUTTON -->
+
+    <form
+        method="POST"
+        action="/save_student_face"
+    >
+
+        <button
+            type="submit"
+            class="btn"
+        >
+
+            Register My Face
+
+        </button>
+
+    </form>
+
+    <!-- BACK -->
+
+    <a
+        href="/student"
+        class="back"
+    >
+
+        ⬅ Back To Dashboard
+
+    </a>
+
+</div>
+
+</body>
+</html>

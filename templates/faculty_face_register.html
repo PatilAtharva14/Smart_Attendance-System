@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Faculty Face Registration
+
+    </title>
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    <!-- ICONS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        *{
+
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #020617,
+                    #0F172A,
+                    #111827
+                );
+
+            font-family:'Poppins', sans-serif;
+
+            color:white;
+        }
+
+        .container{
+
+            width:950px;
+
+            padding:40px;
+
+            border-radius:30px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            backdrop-filter:blur(14px);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            text-align:center;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.45);
+        }
+
+        h1{
+
+            font-size:55px;
+
+            margin-bottom:10px;
+
+            color:#00E5FF;
+
+            font-weight:800;
+        }
+
+        h2{
+
+            margin-bottom:28px;
+
+            color:#CBD5E1;
+
+            font-size:26px;
+        }
+
+        /* ===========================
+        CAMERA BOX
+        ============================ */
+
+        .camera-wrapper{
+
+            display:flex;
+
+            justify-content:center;
+
+            margin-bottom:30px;
+        }
+
+        .camera-box{
+
+            width:720px;
+
+            border-radius:22px;
+
+            overflow:hidden;
+
+            border:
+                3px solid rgba(0,229,255,0.25);
+
+            background:black;
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,0.45);
+        }
+
+        .camera-box img{
+
+            width:100%;
+
+            display:block;
+        }
+
+        /* ===========================
+        STATUS
+        ============================ */
+
+        .status{
+
+            margin-bottom:25px;
+
+            display:inline-flex;
+
+            align-items:center;
+
+            gap:10px;
+
+            padding:12px 24px;
+
+            border-radius:30px;
+
+            background:
+                rgba(0,255,127,0.12);
+
+            color:#00FF9C;
+
+            font-weight:700;
+
+            border:
+                1px solid rgba(0,255,127,0.2);
+        }
+
+        .dot{
+
+            width:12px;
+            height:12px;
+
+            border-radius:50%;
+
+            background:#00FF9C;
+
+            animation:pulse 1s infinite;
+        }
+
+        @keyframes pulse{
+
+            0%{
+
+                transform:scale(1);
+                opacity:1;
+            }
+
+            50%{
+
+                transform:scale(1.4);
+                opacity:0.5;
+            }
+
+            100%{
+
+                transform:scale(1);
+                opacity:1;
+            }
+
+        }
+
+        /* ===========================
+        BUTTON
+        ============================ */
+
+        button{
+
+            padding:16px 40px;
+
+            border:none;
+
+            border-radius:16px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00E5FF,
+                    #00B8D4
+                );
+
+            color:#0F172A;
+
+            font-size:18px;
+
+            font-weight:800;
+
+            cursor:pointer;
+
+            transition:0.3s;
+        }
+
+        button:hover{
+
+            transform:translateY(-4px);
+
+            box-shadow:
+                0 8px 25px rgba(0,229,255,0.35);
+        }
+
+        /* ===========================
+        BACK BUTTON
+        ============================ */
+
+        .back-btn{
+
+            margin-top:25px;
+
+            display:inline-block;
+
+            color:#CBD5E1;
+
+            text-decoration:none;
+
+            font-size:16px;
+        }
+
+        .back-btn:hover{
+
+            color:#00E5FF;
+        }
+
+        /* ===========================
+        RESPONSIVE
+        ============================ */
+
+        @media(max-width:900px){
+
+            .container{
+
+                width:95%;
+                padding:25px;
+            }
+
+            .camera-box{
+
+                width:100%;
+            }
+
+            h1{
+
+                font-size:42px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+
+        📸 Faculty Face Registration
+
+    </h1>
+
+    <h2>
+
+        Welcome {{ username }}
+
+    </h2>
+
+    <!-- STATUS -->
+
+    <div class="status">
+
+        <div class="dot"></div>
+
+        Live AI Camera Active
+
+    </div>
+
+    <!-- CAMERA -->
+
+    <div class="camera-wrapper">
+
+        <div class="camera-box">
+
+            <img
+                src="/faculty_register_feed"
+            >
+
+        </div>
+
+    </div>
+
+    <!-- REGISTER -->
+
+    <form
+        action="/save_faculty_face"
+        method="POST"
+    >
+
+        <button type="submit">
+
+            Register Face
+
+        </button>
+
+    </form>
+
+    <!-- BACK -->
+
+    <a
+        href="/faculty"
+        class="back-btn"
+    >
+
+        ⬅ Back to Dashboard
+
+    </a>
+
+</div>
+
+</body>
+</html>
