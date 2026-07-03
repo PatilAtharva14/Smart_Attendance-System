@@ -1,0 +1,431 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:
+        linear-gradient(
+            135deg,
+            #0F172A,
+            #111827,
+            #1E293B
+        );
+
+    color:white;
+
+    font-family:'Poppins', sans-serif;
+
+    overflow-x:hidden;
+}
+
+/* ===================================== */
+/* MAIN CONTAINER */
+/* ===================================== */
+
+.container{
+    width:95%;
+    margin:auto;
+    padding:25px;
+}
+
+/* ===================================== */
+/* NAVBAR */
+/* ===================================== */
+
+.navbar{
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+    padding:20px 30px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    backdrop-filter:blur(14px);
+
+    border:
+        1px solid rgba(255,255,255,0.1);
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.3);
+}
+
+.logo{
+    font-size:30px;
+    font-weight:700;
+    color:#00E5FF;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.status{
+    padding:10px 18px;
+
+    border-radius:30px;
+
+    background:
+        rgba(0,255,127,0.12);
+
+    color:#00FF9C;
+
+    font-weight:600;
+
+    border:
+        1px solid rgba(0,255,127,0.3);
+}
+
+/* ===================================== */
+/* PAGE TITLE */
+/* ===================================== */
+
+.page-title{
+    margin-bottom:30px;
+}
+
+.page-title h1{
+    font-size:40px;
+    font-weight:700;
+}
+
+.page-title p{
+    margin-top:8px;
+    color:#94A3B8;
+    font-size:16px;
+}
+
+/* ===================================== */
+/* CARDS */
+/* ===================================== */
+
+.cards{
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(240px,1fr));
+
+    gap:25px;
+
+    margin-bottom:35px;
+}
+
+.card{
+    position:relative;
+
+    padding:30px;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    backdrop-filter:blur(16px);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    transition:0.4s ease;
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.35);
+}
+
+.card:hover{
+    transform:translateY(-8px);
+
+    box-shadow:
+        0 12px 40px rgba(0,229,255,0.2);
+}
+
+.card::before{
+    content:"";
+
+    position:absolute;
+
+    top:-40px;
+    right:-40px;
+
+    width:120px;
+    height:120px;
+
+    background:
+        rgba(0,229,255,0.08);
+
+    border-radius:50%;
+}
+
+.card h2{
+    font-size:40px;
+
+    color:#00E5FF;
+
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#CBD5E1;
+    font-size:17px;
+}
+
+/* ===================================== */
+/* GRAPHS */
+/* ===================================== */
+
+.graphs{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:25px;
+
+    margin-bottom:35px;
+}
+
+.graph-box{
+    padding:20px;
+
+    border-radius:22px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    backdrop-filter:blur(14px);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.35);
+}
+
+/* ===================================== */
+/* TABLE */
+/* ===================================== */
+
+.table-container{
+
+    padding:25px;
+
+    border-radius:22px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    backdrop-filter:blur(14px);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.35);
+
+    overflow-x:auto;
+
+    margin-bottom:35px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:
+        rgba(0,229,255,0.15);
+
+    color:#00E5FF;
+
+    padding:18px;
+
+    font-size:15px;
+
+    text-transform:uppercase;
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.08);
+}
+
+td{
+    padding:16px;
+
+    text-align:center;
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.06);
+
+    color:#E2E8F0;
+}
+
+tr:hover{
+    background:
+        rgba(255,255,255,0.04);
+}
+
+/* ===================================== */
+/* TOP ATTENDEES */
+/* ===================================== */
+
+.top-box{
+    padding:25px;
+
+    border-radius:22px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    backdrop-filter:blur(14px);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.35);
+}
+
+.top-box h2{
+    margin-bottom:20px;
+}
+
+.top-item{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:16px;
+
+    margin-bottom:12px;
+
+    border-radius:12px;
+
+    background:
+        rgba(255,255,255,0.04);
+
+    transition:0.3s;
+}
+
+.top-item:hover{
+    background:
+        rgba(0,229,255,0.08);
+}
+
+/* ===================================== */
+/* BUTTONS */
+/* ===================================== */
+
+.btn{
+    display:inline-block;
+
+    margin-top:30px;
+
+    padding:14px 28px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00E5FF,
+            #00B8D4
+        );
+
+    color:#0F172A;
+
+    transition:0.3s;
+
+    box-shadow:
+        0 6px 20px rgba(0,229,255,0.3);
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 10px 30px rgba(0,229,255,0.4);
+}
+
+/* ===================================== */
+/* STATUS BADGES */
+/* ===================================== */
+
+.badge{
+    padding:8px 16px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+.present{
+    background:
+        rgba(0,255,127,0.12);
+
+    color:#00FF9C;
+}
+
+.absent{
+    background:
+        rgba(255,0,85,0.12);
+
+    color:#FF4D6D;
+}
+
+/* ===================================== */
+/* RESPONSIVE */
+/* ===================================== */
+
+@media(max-width:1100px){
+
+    .graphs{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+        text-align:center;
+    }
+
+    .page-title h1{
+        font-size:30px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .card h2{
+        font-size:34px;
+    }
+
+}
